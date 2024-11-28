@@ -12,57 +12,63 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 from requests.exceptions import HTTPError
 
-# Funktion zur Kommunikation mit dem LLM
-def query_mistral(prompt):
-    url = "https://dellfi.serv.uni-hohenheim.de/mistral"
-    data = {
-        "model": "mistral-nemo",
-        "prompt": prompt
-    }
-    response = requests.post(url, json=data, verify=False)
+class LLMQuery:
+    def __init__(self, model="mistral-nemo", url="https://dellfi.serv.uni-hohenheim.de/mistral"):
+        self.model = model
+        self.url = url
 
-    if response.status_code == 200:
-        lines = response.text.splitlines()
-        full_response = ""
-        for line in lines:
-            message = json.loads(line)
-            full_response += message["response"]
-            if message.get("done", False):
-                break
-        return full_response
-    else:
-        return "Error: " + str(response.status_code)
+    def query_Mistral(self, prompt):
+        data = {"model": self.model, "prompt": prompt}
+    
+        try:
+            response = requests.post(url, json=data, verify=False)
 
-# Hauptlogik 
-def main():
-    #print("Willkommen beim Voice Education Bot! Sprechen Sie, um zu starten.")
+            if response.status_code == 200:
+                lines = response.text.splitlines()
+                full_response = ""
+                for line in lines:
+                    message = json.loads(line)
+                    full_response += message["response"]
+                    if  message.get("done", False):
+                        break
+                return full_response
+            else:
+                return "Error: " + str(response.status_code)
+        except Exception as e:
+            return f"Error:  + {str(e)}"
 
-    while True: 
+# # Hauptlogik 
+# def main():
+#     #print("Willkommen beim Voice Education Bot! Sprechen Sie, um zu starten.")
 
-        # Input aus Textfile
+#     while True: 
 
-        dirname = os.path.dirname(__file__)
-        file_path = os.path.join(dirname, '')
-        #file_path = "/Users/valerieheil/Documents/Uni/HKA/Intuitive und perzeptive Benutzungsschnittstellen/Labor/3 Planung/"
+#         # Input aus Textfile
+
+#         # dirname = os.path.dirname(__file__)
+#         # file_path = os.path.join(dirname, '')
+#         #file_path = "/Users/valerieheil/Documents/Uni/HKA/Intuitive und perzeptive Benutzungsschnittstellen/Labor/3 Planung/"
+#         file_path = "c:/Users/vince/Documents/Studium Medieninformatik/7 Semester/MMK2/Labor/education_bot/LLM/"
         
-        user_input = "Du bist ein Lehrassistenz-System für Medieninformatiker aus dem 6.Semester. Die folgenden Inhalte sollst du als Basis deiner Antwort nutzen, wenn du dies nicht kannst, dann halte dich bitte an eine allgemeine Antwort:"
-        user_input = user_input + Path(file_path + "test.txt").read_text()
-        # evtl als pdf bzw. pptx    
+        
+#         user_input = "Du bist ein Lehrassistenz-System für Medieninformatiker aus dem 6.Semester. Die folgenden Inhalte sollst du als Basis deiner Antwort nutzen, wenn du dies nicht kannst, dann halte dich bitte an eine allgemeine Antwort:"
+#         user_input = user_input + Path(file_path + "test.txt").read_text(encoding="utf-8")
+#         # evtl als pdf bzw. pptx    
 
-        # zum Testen in Terminal:
-        user_input = user_input + input("Enter something: ")
+#         # zum Testen in Terminal:
+#         user_input  += input("Enter something: ")
 
-        # Anfrage an das LLM
-        bot_response = query_mistral(user_input)
+#         # Anfrage an das LLM
+#         bot_response = query_mistral(user_input)
 
-        # als Text-File ausgeben, dann zu Speech weiterverarbeitet...
-        Path(file_path + "text2").write_text(bot_response)
-        print(user_input + " : ")
-        print(bot_response)
+#         # als Text-File ausgeben, dann zu Speech weiterverarbeitet...
+#         Path(file_path + "text2").write_text(bot_response)
+#         print(user_input + " : ")
+#         print(bot_response)
 
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
 
 
 
