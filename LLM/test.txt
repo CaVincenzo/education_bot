@@ -1,0 +1,327 @@
+Kommunikation
+& Kognition
+Prof. Dr. Matthias Wölfel
+Wie kommunizieren Menschen
+symmetrisch
+Visuell
+§ Schrift, verbal
+§ Bilder, Gesten,
+nonverbal
+Akustisch
+§ Sprache, verbal
+§ Töne, nonverbal
+Taktil
+§ Berührung
+§ Bewegung
+§ Vielfältige Medien
+§ Reiche Kommunikation
+möglich
+Kommunikation Mensch mit Maschinen
+unsymmetrisch
+Visuell
+§ Bilder
+§ Schrift
+Akustisch
+§ verbal
+unsymmetrisch
+Verbal
+§ Schrift (Tastatur)
+§ Deuten (Maus)
+§ Eingeschränkte Verwendung von Medien
+§ Unsymmetrische Verwendung von Medien
+Interpretation und Reaktion
+Mensch
+§ Natürliche Intelligenz
+§ Weltwissen
+§ Fähigkeit zur
+§ Abstraktion
+§ Interpolation
+§ Anpassung
+Computer
+(nicht LLM)
+§ Programmierung
+§ Ausschließlich stark
+eingeschränktes
+Spezialwissen
+§ Kein Abweichen vom
+Programm möglich
+Fehlerhafte Kommunikation
+Die Form, wie wir kommunizieren, kann ein falsches Bild von uns
+vermitteln, was nicht dem entspricht, was wir eigentlich mitteilen
+wollten, dies kann bei dem Gegenüber zu Irritationen führen.
+Das Gleiche gilt auch in der Kommunikation zwischen Mensch und
+Maschine.
+Bessere Kommunikation durch
+Gestaltungsziele
+§ Klarheit
+Informationsgehalt wird schnell und genau vermittelt
+§ Unterscheidbarkeit
+Angezeigte Informationen können voneinander unterschieden werden
+§ Kompaktheit
+Nur Information geben, die für das Erledigen der Aufgabe notwendig ist
+§ Konsistenz
+Gleiche Information wird stets auf die gleiche Art dargestellt
+Bessere Kommunikation durch
+Gestaltungsziele
+§ Erkennbarkeit
+Aufmerksamkeit des Benutzers wird auf die Information gelenkt
+§ Lesbarkeit
+Information ist leicht zu lesen
+§ Verständlichkeit
+Bedeutung ist leicht verständlich, eindeutig und erkennbar
+Verfehlte Gestaltungsziele
+Verfehlte Gestaltungsziele führen zu
+§ körperlichen Reaktionen
+§ technologiebezogenen Wutanfällen
+§ 62% haben den PC schon mal beschimpft oder angebrüllt
+§ 31% haben schon mal mit der Maus auf den Tisch geschlagen oder mit
+ihr geworfen
+§ 15% haben den Bildschirm geschlagen oder das Gehäuse getreten.
+Aggression gegen Maschinen
+Formen der Aufmerksamkeit
+Geteilte Aufmerksamkeit
+§ bei stark automatisierten, sequenziellen Vorgängen
+§ keine Beteiligung des Kurzzeitgedächtnisses
+§ geprägt durch Gewohnheit und Erfahrung
+Selektive Aufmerksamkeit
+§ bei unerwarteten oder gar bedrohlichen Ereignissen
+§ durch Willen gesteuert (absichtlich)
+§ in unvertrauten Situationen und
+§ wenn Entscheidungen getroffen werden müssen
+Aufmerksamkeit an der
+Benutzungsschnittstelle
+Benutzer sollten
+§ sich leicht auf die eigentliche Aufgabe konzentrieren können
+§ nach einer Unterbrechung die Arbeit “nahtlos” fortsetzen können
+Aufmerksamkeit für die Bedienung einer Software wird der
+eigentlichen Erledigung der Aufgabe entzogen.
+Aufmerksamkeit an der
+Benutzungsschnittstelle
+§ Realisierungsmöglichkeiten
+§ System sollte Erinnerungshinweise anbieten (letzte Position in einem Text)
+§ geeignete Strukturierung
+§ Änderungen visualisieren
+§ keine überflüssige Information darstellen!
+Präattentive Wahrnehmung
+Die Präattentive Wahrnehmung ist eine vorbewusste,
+unterschwellige Wahrnehmung von Sinnesreizen.
+§ Das Vorhandensein von Objekten mit bestimmten Merkmalen wird auch
+bei kurzer Reizdarbietung wahrgenommen (< 0.2 s).
+§ Die Wahrnehmung eines abweichenden Objektes ist unabhängig von der
+Anzahl der „normalen“ Objekte.
+Gesetz der Nähe
+Räumliche Nähe führt dazu, dass Information als zusammengehörig
+wahrgenommen wird, selbst wenn sich Form und Farbe unterscheiden.
+Gesetz nicht beachtet Gesetz beachtet
+Gesetz der Gleichheit
+Gleichheit von Farben und Formen führt ebenfalls (in geringerem
+Maße) zur Wahrnehmung von Zusammengehörigkeit.
+Millersche Zahl
+Die Millersche Zahl bezeichnet, dass ein Mensch gleichzeitig nur
+7 ± 2 Informationseinheiten (Chunks) im Kurzzeitgedächtnis präsent
+halten kann.
+§ Die Größe des Kurzzeitgedächtnisses ist genetisch determiniert und kann
+auch durch „Training“ nicht gesteigert werden.
+§ Die Fokussierung auf die Anzahl 7 wird angezweifelt, so ergab sich bei dem
+Originalexperiment eine Wiederkennung bei 7 Zahlen, 6 Buchstaben und 5
+Wörtern.
+§ Zusammengehörige Chunks können leichter gemerkt werden.
+Hicksches Gesetz
+Das Hicksche Gesetz beschreibt den Zusammenhang zwischen
+Reaktionszeit und Anzahl der Wahlmöglichkeiten.
+Hicksches Gesetz
+In einfacher Näherung kann angenommen werden, dass für jede
+Verdoppelung der Wahlmöglichkeiten die Reaktionszeit um ca. 150 ms steigt.
+Das Auswahl-Problem
+Wir alle kennen den Spruch „Die Qual der Marmeladenwahl“.
+Zu viel Freiheit macht auch keinen Spaß: Wer unzählige Optionen hat,
+fühlt sich am Ende wie gelähmt.
+Das Marmeladenproblem
+Verschiedene Interaktionsmöglichkeiten
+Zum Beispiel ist das Herunterscrollen einer Bildschirmseite
+über verschiedene Interaktionen und Modalitäten möglich.
+Strategien bei Multimodalität
+Bei konkurrierenden Modalitäten entscheidet sich der Nutzer für
+die eine oder andere Modalität.
+z.B. Benutzer sagt„schalte das Licht beim Fenster an“
+Bei kombinierenden Modalitäten kommen verschiedene
+Modalitäten gemeinsam zum Einsatz.
+z.B. Nutzer zeigtauf Licht am Fenster und sagt„schalte das Licht an“
+Potentiale von Multimodalität
+Effizienz
+§ möglichst schnelle Aufgabenbearbeitung bei geringem Aufwand
+Effektivität
+§ Benutzer machen in der jeweiligen Situation das Richtige
+Robustheit
+§ Unempfindlichkeit gegenüber Bedien- und Erkennungsfehler
+Natürlich
+§ Nachahmung zwischenmenschlicher Kommunikation
+Aufgabenangemessenheit
+§ Die Modalität passt zur Aufgabe
+Modalitätswechsel
+Stehen mehrere Modalitäten zur Verfügung, kann es zu einer
+erhöhten kognitiven Belastung kommen, da die Entscheidung, welche
+Modalität verwendet werden soll, zusätzliche Ressourcen verbraucht.
+Nach einem Modalitätswechsel benötigt man auch eine kurze
+Neuorientierung.
+Die Wahl der Modalität ist abhängig von dem Kontext der Nutzung.
+Der Kontext der Nutzung
+Umgebung
+§ Temperatur
+§ Licht
+§ Geräusch
+§
+…
+Soziale Aspekte
+§ Privatsphäre
+§ Kollaboration
+§
+…
+User
+§ Vorlieben
+§ Ziele
+§ Emotionaler Zustand
+§
+…
+Technologie
+§ Bildschirmgröße
+§ Connectivity
+§
+…
+Einteilung verschiedener Umgebungen
+Klassisches
+Interface
+Ubiquitäre
+Systeme
+Standortbezogene
+Dienste
+Telepräsenz
+Digitale Inhalte Umgebung
+Einteilung verschiedener Umgebungen
+Handgehaltene
+erweiterte
+Realität
+Kopfbefestigte
+erweiterte
+Realität
+Immersive
+virtuelle Realität
+(HMD)
+Immersive
+virtuelle Realität
+(CAVE)
+Digitale Inhalte Umgebung
+Merkmale des Eingabegeräts
+§ Größe und Form, Belastung
+§ Freiheitsgrade
+§ Direkte oder indirekte Manipulation
+§ Relative vs. absolute Eingabe
+§ Isometrisch vs. Isotonisch
+Relative und absolute
+Eingabe
+Bei der relativen Eingabe wird die
+Differenz zwischen aktueller und
+letzter Eingabe gemessen (z.B. Maus).
+Bei der absoluten Eingabe wird
+die Distanz zu einem konstanten
+Referenzpunkt gemessen
+(z.B. Grafiktablet).
+Isometrische und
+isotonische Eingabe
+Bei der isometrischen Eingabe wird
+Druck/Kraft gemessen ohne
+‘tatsächliche’ Bewegung.
+(z.B. Anpressdruck des Stiftes).
+Bei der isotonischen Eingabe wird
+die Abweichung von einem Ausgangs-
+bzw. Mittelpunkt gemessen
+(z.B. Joystick).
+Kognitive Interface
+Kognition (von lateinisch cognoscere ,erkennen‘, ,erfahren‘,
+,kennenlernen‘) ist die Fähigkeit die Umwelt wahrzunehmen und die
+so gewonnenen Informationen weiterzuverarbeiten.
+Zu kognitiven Fähigkeiten zählen
+§ Wahrnehmungder Umwelt
+§ Aufmerksamkeitauf relevante Geschehnisse
+§ Lernen , neues Wissen aufnehmen
+§ Denken , Wissen anwenden
+§ Gedächtnis , Informationen und Erinnerungen speichern
+§ Zuweisungvon Bedeutung vor allem bei Kommunikation
+Menschlicher Kognitionszyklus
+Erinnern
+Wahrnehmungsprozesse
+Verarbeiten
+Wahrnehmen
+Handeln
+Empfinden
+Bewegen
+Umwelt
+Handlungsprozesse
+Komponenten eines kognitiven Systems
+Cognitive Processor
+Reasoning Learning
+Knowledge
+Base
+Recognition Planning
+Feature
+Extraction
+Sensor Fusion
+Sensor
+Sensor Sensor
+Möglichkeiten der Perzeption
+Auditiv
+§ Spracherkennung
+§ Sprecherverfolgung
+§ Sprecheridentifikation
+§ Sprecherverifikation
+§ Auditorische Szenenanalyse
+Visuell
+§ Gesichtserkennung / -verfolgung
+§ Personenverfolgung
+§ Gesichtserkennung
+§ Gestenerkennung
+§ Aktionserkennung
+§ Blickverfolgung / Fokus der
+Aufmerksamkeit
+§ Personenidentifikation
+§ Emotionserkennung
+§ Alter & Geschlecht
+Datenschutz
+In unserem Zusammenhang behandelt Datenschutz den
+§ Schutz vor missbräuchlicher Datenverarbeitung
+§ Schutz des Persönlichkeitsrechts
+§ Schutz der Privatsphäre
+Datenschutz steht für das grundgesetzlich abgesicherte Recht, dass
+jeder Mensch grundsätzlich selbst darüber entscheiden darf, wem
+wann welche seiner persönlichen Daten zugänglich sein sollen.
+Der Datenschutz soll dem so genannten gläsernen Menschen
+entgegenwirken.
+Mögliche Probleme
+§ Gesetzliche Regelung
+§ Persönliches Empfinden
+§ Es dürfen nicht überall Sensoren aufgestellt werden.
+§ Viele Personen fühlen sich durch Kameras, etc. beobachtet.
+Sensoren sind nicht immer erwünscht!
+ShotSpotter
+Umgang mit Datenschutz
+In jedem Einzelfall ist daher zu überprüfen,
+§ wie die jeweilige gesetzliche Regelung aussieht
+(kann von Bundesland zu Bundesland sehr stark variieren),
+§ wie das persönliche Empfinden der Anwender beeinflusst wird
+(sehr stark von der Kultur abhängig),
+und es sind entsprechende Maßnahmen zu treffen.
+Landesbeauftragte für den
+Datenschutz Baden-Württemberg
+§ Datenschutz ist ein Grundrecht. Dieses zu sichern, ist Aufgabe des Landesbeauftragten
+für den Datenschutz.
+§ Der Landesbeauftragte für den Datenschutz geht entsprechenden Beschwerden von
+Bürgerinnen und Bürgern über Behörden oder Unternehmen in Baden-
+Württemberg nach.
+§ […]
+§ Der Landesbeauftragte für den Datenschutz ist seit dem 1. April 2011
+auch Aufsichtsbehörde für den nicht-öffentlichen Bereich. In dieser Funktion kontrolliert
+er, ob die in Baden-Württemberg ansässigen nicht-öffentlichen Stellen die Vorschriften
+des Bundesdatenschutzgesetzes und anderer Vorschriften über den Datenschutz
+einhalten. Er berät und unterstützt auch die nicht-öffentlichen Stellen im Land und deren
+betriebliche Datenschutzbeauftragte in Datenschutzfragen.
+Quelle: http://www.baden-wuerttemberg.datenschutz.de/
