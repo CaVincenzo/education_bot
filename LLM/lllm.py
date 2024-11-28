@@ -3,6 +3,8 @@ import requests
 import json
 import urllib3
 
+import os
+
 from pathlib import Path # für Textfile
 
 # HTTPS-Warnungen deaktivieren
@@ -38,7 +40,10 @@ def main():
     while True: 
 
         # Input aus Textfile
-        file_path = "/Users/valerieheil/Documents/Uni/HKA/Intuitive und perzeptive Benutzungsschnittstellen/Labor/3 Planung/"
+
+        dirname = os.path.dirname(__file__)
+        file_path = os.path.join(dirname, '')
+        #file_path = "/Users/valerieheil/Documents/Uni/HKA/Intuitive und perzeptive Benutzungsschnittstellen/Labor/3 Planung/"
         
         user_input = "Du bist ein Lehrassistenz-System für Medieninformatiker aus dem 6.Semester. Die folgenden Inhalte sollst du als Basis deiner Antwort nutzen, wenn du dies nicht kannst, dann halte dich bitte an eine allgemeine Antwort:"
         user_input = user_input + Path(file_path + "test.txt").read_text()
