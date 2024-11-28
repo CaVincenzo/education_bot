@@ -1,3 +1,5 @@
+### Large-Language-Model ####
+
 Modul requests installieren:
 https://stackoverflow.com/questions/17309288/importerror-no-module-named-requests
 
@@ -9,3 +11,5 @@ sudo yum install python-requests
 
 Windows:
 pip install requests
+
+### LLM Ende ####
