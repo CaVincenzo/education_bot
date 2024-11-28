@@ -1,0 +1,11 @@
+Modul requests installieren:
+https://stackoverflow.com/questions/17309288/importerror-no-module-named-requests
+
+OSX/ Linux:
+sudo pip install requests
+
+Linux:
+sudo yum install python-requests
+
+Windows:
+pip install requests
