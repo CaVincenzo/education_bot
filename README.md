@@ -32,6 +32,41 @@ stateDiagram
 	note left of Response: TTS
 ```
 
+
+## Activity Diagram
+```mermaid
+flowchart TD
+    A[Start: Initialisierung] --> B{Free Learning?}
+    B -->|Yes| C[Free Learning]
+    C --> D{Activation?}
+    D -->|Yes| F[Activation]
+    D -->|No| C
+    B -->|No| H[Q&A Mode]
+    H --> I{Done Learning?}
+    C --> I
+    I -->|Yes| J[Quit]
+    I -->|No| H
+    J --> K[Shutdown Everything]
+    K --> L[End]
+
+```
+
+
+## State Diagram
+```mermaid
+stateDiagram
+    [*] --> Initialisierung
+    Initialisierung --> FreeLearning: Free Learning Mode selected
+    FreeLearning --> Activation: Requires Activation
+    Initialisierung --> QA: Q&A Mode selected
+    QA --> Quit: Finish Learning
+    FreeLearning --> Quit: Finish Learning
+    Quit --> Shutdown
+    Shutdown --> [*]
+
+```
+
+
 ## ER-Modell
 ```mermaid
 erDiagram
