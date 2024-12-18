@@ -2,34 +2,19 @@ import whisper
 import pyaudio
 import wave
 import keyboard
-import python_TTS
 
 # Use push to Talk 'l' for voce request
-# Use 'r' tu let request read out
+
 
 model = whisper.load_model("tiny")
 p = pyaudio.PyAudio()
-inputKey="l"
-python_TTS.init()
+inputKey="l" # push to talk button
+
 
 RATE = 16000
 FORMAT = pyaudio.paInt16 # 16-bit frames, ie audio is in 2 bytes
 CHANNELS = 1             # mono recording, use 2 if you want stereo
 CHUNK_SIZE = 1024        # bytes
-
-def startrecording():
-    with wave.open("recording.wav", "wb") as wavefile:
-        p = pyaudio.PyAudio()
-        wavefile.setnchannels(CHANNELS)
-        wavefile.setsampwidth(p.get_sample_size(FORMAT))
-        wavefile.setframerate(RATE)
-
-        stream = p.open(format=FORMAT, channels=CHANNELS, rate=RATE, input=True)
-        for _ in range(0, RATE // CHUNK_SIZE * 5):
-            wavefile.writeframes(stream.read(CHUNK_SIZE))
-        wavefile.close()
-        stream.close()
-        p.terminate
 
 # wisper 
 def audioToString():
@@ -53,7 +38,8 @@ def audioToString():
    
     return result.text
 
-while True:
+# Starts audio recording, on buuton relese returns spocken as String
+def start_audio_input() ->str:
     if keyboard.is_pressed(inputKey):
         print("Recording")
         with wave.open("education_bot/TTS_and_STT/recording.wav", "wb") as wavefile:
@@ -68,10 +54,7 @@ while True:
             wavefile.close()
             stream.close()
             p.terminate
-        lastResult=audioToString()  
+        lastResult:str =audioToString()  
+        return lastResult
         
-    #test TODO: Delete
-    if keyboard.is_pressed('r'):
-            print("Start Audio reading")
-            python_TTS.audio_out("Starte test lesen")
-            python_TTS.audio_out(audioToString())
+
