@@ -79,14 +79,5 @@ class EducationStateMachine(StateMachine):
         print("Reset to Init")
         # Add your logic here
 
-    # BeispielWorkflow der sodann in der main.py aufgerufen werden kann
-    def beispielWorkflow(self):
-
-         # Beispiel für einen Workflow: Init -> Free Learning -> Completed
-
-        print("=== State Machine Test ===")
-        print(f"Initial State: {self.current_state}")
-        self.start_free_learning()
-        print(f"Current State: {self.current_state}")
-        self.free_learning_to_completed()
-        print(f"Current State: {self.current_state}")
+  
+        
