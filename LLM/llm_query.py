@@ -49,7 +49,7 @@ class MistralQuery:
         except Exception as err:
             return f"An error occurred in Q_AND_A: {err}"
 
-    async def query_FreeLearning(self, context, prompt, output_file_path):
+    async def query_FreeLearning_async(self, context, prompt, output_file_path):
         """
         Kommuniziert mit dem Mistral LLM und verarbeitet Eingaben und Ausgaben ohne Verwendung einer Eingabedatei.
 
@@ -68,45 +68,29 @@ class MistralQuery:
         except Exception as err:
             return f"An error occurred in FL: {err}"
         
-
-    async def _send_request_async(self, full_prompt, output_file_path):
+    def query_FreeLearning(self, context, prompt, output_file_path):
         """
-        Führt eine asynchrone Anfrage an das LLM durch.
+        Kommuniziert mit dem Mistral LLM und verarbeitet Eingaben und Ausgaben ohne Verwendung einer Eingabedatei.
 
-        :param full_prompt: Der vollständige Prompt, der an das LLM gesendet wird.
+        :param context: Vorbedingungen oder Kontext, der dem Prompt vorangestellt wird.
+        :param prompt: Der Haupt-String, der vom Benutzer übergeben wird.
         :param output_file_path: Pfad zur Ausgabedatei, in die die Antwort geschrieben wird.
         :return: Die Antwort des LLM als String.
         """
         try:
-            data = {
-                "model": "mistral-nemo",
-                "prompt": full_prompt
-            }
-            async with aiohttp.ClientSession() as session:
-                async with session.post(self.url, json=data, ssl= False) as response:    
-                # async with session.post(self.url, json=data, ssl=False ) as response:
-                    if response.status == 200:
-                        lines = await response.text()
-                        full_response = ""
-                        for line in lines.splitlines():
-                            message = json.loads(line)
-                            full_response += message["response"]
-                            if message.get("done", False):
-                                break
+            # Vollständigen Kontext und Prompt kombinieren
+            full_prompt = context + "\n" + prompt
 
-                        # Antwort in die Ausgabedatei schreiben
-                        Path(output_file_path).write_text(full_response)
-
-                        return full_response
-                    else:
-                        return f"Error: {response.status}"
+            # Anfrage an das LLM
+            return self._send_request(full_prompt, output_file_path) 
 
         except Exception as err:
-            return f"An error occurred: {err}"
+            return f"An error occurred in FL: {err}"
+        
 
-    # def _send_request(self, full_prompt, output_file_path):
+    # async def _send_request_async(self, full_prompt, output_file_path):
     #     """
-    #     Führt die Anfrage an das LLM durch und speichert die Antwort.
+    #     Führt eine asynchrone Anfrage an das LLM durch.
 
     #     :param full_prompt: Der vollständige Prompt, der an das LLM gesendet wird.
     #     :param output_file_path: Pfad zur Ausgabedatei, in die die Antwort geschrieben wird.
@@ -117,25 +101,68 @@ class MistralQuery:
     #             "model": "mistral-nemo",
     #             "prompt": full_prompt
     #         }
-    #         response = requests.post(self.url, json=data, verify=False)
-            
-    #         if response.status_code == 200:
-    #             lines = response.text.splitlines()
-    #             full_response = ""
-    #             for line in lines:
-    #                 message = json.loads(line)
-    #                 full_response += message["response"]
-    #                 if message.get("done", False):
-    #                     break
+    #         async with aiohttp.ClientSession() as session:
+    #             async with session.post(self.url, json=data, ssl=False) as response:
+    #                 if response.status == 200:
+    #                     response_text = await response.text()
+    #                     try:
+    #                         # Prüfen, ob die Antwort JSON ist
+    #                         response_json = json.loads(response_text)
+    #                         # Überprüfen, ob ein Fehlerfeld vorhanden ist
+    #                         if "error" in response_json:
+    #                             return f"Server error: {response_json['error']}"
+    #                         else:
+    #                             # Verarbeite die reguläre Antwort
+    #                             lines = response_text.splitlines()
+    #                             full_response = ""
+    #                             for line in lines:
+    #                                 message = json.loads(line)
+    #                                 full_response += message.get("response", "")
+    #                                 if message.get("done", False):
+    #                                     break
+    #                             # Antwort speichern
+    #                             Path(output_file_path).write_text(full_response)
+    #                             return full_response
+    #                     except json.JSONDecodeError:
+    #                         return "Fehler: Die Serverantwort konnte nicht gelesen werden."
+    #                 else:
+    #                     return f"HTTP error: {response.status}"
 
-    #             # Antwort in die Ausgabedatei schreiben
-    #             Path(output_file_path).write_text(full_response)
-
-    #             return  full_response
-    #         else:
-    #             return "Error: " + str(response.status_code)
-
-    #     except HTTPError as http_err:
-    #         return f"HTTP error occurred: {http_err}"
     #     except Exception as err:
-    #         return f"An error occurred_send_request: {err}"
+    #         return f"An error occurred: {err}"
+
+    def _send_request(self, full_prompt, output_file_path):
+        """
+        Führt die Anfrage an das LLM durch und speichert die Antwort.
+
+        :param full_prompt: Der vollständige Prompt, der an das LLM gesendet wird.
+        :param output_file_path: Pfad zur Ausgabedatei, in die die Antwort geschrieben wird.
+        :return: Die Antwort des LLM als String.
+        """
+        try:
+            data = {
+                "model": "mistral-nemo",
+                "prompt": full_prompt
+            }
+            response = requests.post(self.url, json=data, verify=False)
+            print(response._content)
+            if response.status_code == 200:
+                lines = response.text.splitlines()
+                full_response = ""
+                for line in lines:
+                    message = json.loads(line)
+                    full_response += message["response"]
+                    if message.get("done", False):
+                        break
+
+                # Antwort in die Ausgabedatei schreiben
+                Path(output_file_path).write_text(full_response)
+
+                return  full_response
+            else:
+                return "Error: " + str(response.status_code)
+
+        except HTTPError as http_err:
+            return f"HTTP error occurred: {http_err}"
+        except Exception as err:
+            return f"An error occurred_send_request: {err}"
