@@ -1,3 +1,4 @@
+import asyncio
 from time import sleep
 from StateMaschine.state_machine import EducationStateMachine
 
@@ -9,21 +10,20 @@ from Face_Display.PyLips.pylips.face import FacePresets, ExpressionPresets
 def main_loop():
 # Initialisiere die State-Maschine
     education_bot_stateM = EducationStateMachine()
-    face = RobotFace()
+    # face = RobotFace()
     llm_query = MistralQuery()
 
     # Parameter definieren
     context = "Du bist ein Lehrassistenz-System für Medieninformatiker aus dem 6. Semester.\n"
-    prompt = "Was sind die Grundlagen der Medieninformatik?"
+    prompt = "Hallo bist du Online"
     input_file_path = "LLM\Input.txt"
     FL_output_file_path = "LLM\OutputFreeLearning.txt"
     Q_and_A_output_file_path = "LLM\OutputQandA.txt"
     # Rufe die Methode auf
-    FL_response = llm_query.query_FreeLearning(context, prompt, FL_output_file_path)
+    FL_response = asyncio.run(llm_query.query_FreeLearning(context, prompt, FL_output_file_path))
     print("Antwort des FL_LLMs:", FL_response)
     # Ausgabe der Antwort
    
-
     # print("=== State Machine Test ===")
     # print(f"Initial State: {education_bot_stateM.current_state}")
     # face.set_appearance(FacePresets.default)
