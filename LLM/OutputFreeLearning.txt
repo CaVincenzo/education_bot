@@ -1,9 +1,1 @@
-Benutzungsschnittstellen (engl. user interfaces) sind die surfaces oder Oberflächen, durch welche Benutzer mit Computersystemen interagieren können. Es gibt verschiedene Arten von Schnittstellen wie Handgehaltene erweiterte Realität (AR), kopfbefestigte AR, immersive virtuelle Realität (VR) mit Head-Mounted Display (HMD) oder Cave Automatic Virtual Environment (CAVE), und digitale Inhalte Umgebung.
-
-Merkmale des Eingabegeräts sind Größe und Form, Belastung, Freiheitsgrade, direkte oder indirekte Manipulation, relative vs. absolute Eingabe sowie isometrisch vs. isotonisch. Relative Eingabe misst die Differenz zwischen aktueller und letzter Eingabe, während absolute Eingabe die Distanz zu einem konstanten Referenzpunkt misst. Isometrische Eingabe misst Druck/Kraft ohne 'tatsächliche' Bewegung, während isotonische Eingabe die Abweichung von einem Ausgangs- bzw. Mittelpunkt misst.
-
-Ein kognitives Interface ist eine Benutzungsschnittstelle, die auf der Fähigkeit des Menschen basiert, seine Umwelt wahrzunehmen und Informationen weiterzuverarbeiten. Die Komponenten eines kognitiven Systems sind Cognitive Processor, Reasoning Learning, Knowledge Base, Recognition Planning und Feature Extraction.
-
-Mögliche Sensoren für Perzeption sind auditiv (Spracherkennung, Sprecherverfolgung, Sprecheridentifikation, Sprecherverifikation, auditorische Szenenanalyse) und visuell (Gesichtserkennung/verfolgung, Personenverfolgung, Gesichtserkennung, Gestenerkennung, Aktionserkennung, Blickverfolgung/Fokus der Aufmerksamkeit, Personenidentifikation, Emotionserkennung, Alter & Geschlecht).
-
-Im Zusammenhang mit Datenschutz geht es darum, den Schutz vor missbräuchlicher Datenverarbeitung und das Persönlichkeitsrecht sowie die Privatsphäre zu gewährleisten. Der Umgang mit Datenschutz erfordert eine Überprüfung der gesetzlichen Regelung und des persönlichen Empfindens der Anwender sowie entsprechende Maßnahmen.
+Hallo! Ja, ich bin online und bereit, dir als Lehrassistenz-System f�r Medieninformatiker im 6. Semester zu helfen. Was kann ich f�r dich tun?
