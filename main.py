@@ -2,8 +2,8 @@ from time import sleep
 from StateMaschine.state_machine import EducationStateMachine
 from TTS_and_STT.AudioRecorder import AudioRecorder
 from Commands.CommandValidator import CommandValidator
-from Face_Display.PyLips.pylips.speech import RobotFace
-from Face_Display.PyLips.pylips.face import FacePresets, ExpressionPresets
+from Face_Display.pylips.speech import RobotFace
+from Face_Display.pylips.face import FacePresets, ExpressionPresets
 
 def main():
     # Initialisiere die State-Maschine, AudioRecorder und RobotFace
