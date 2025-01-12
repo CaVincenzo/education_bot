@@ -1,5 +1,13 @@
 # education Bot
 
+1.
+Start PyLips Server: 
+python (oder python3) -m pylips.face.start
+
+2.
+Go to: 
+http://localhost:8000/face
+
 ## Structur
 ```mermaid
 erDiagram
