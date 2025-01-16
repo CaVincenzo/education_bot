@@ -5,6 +5,9 @@ import numpy as np
 import math
 import time
 
+focus = True
+interrupt = False
+
 def capture_image(output_path="testCapturedImage.png"):
     """Funktion zum Aufnehmen eines Bildes mit der Webcam."""
     cam_port = 0
@@ -52,8 +55,9 @@ def analyze_image_with_yolo(image_path):
 
 def setup():
     #Setup-Funktion zur Aufnahme der Links- und Rechts-Winkel.
-    print("Bitte nach links schauen und Enter drücken.")
-    input("Drücken Sie Enter, nachdem Sie bereit sind...")
+    print("Setup: Wir werden die Winkel für links und rechts aufnehmen.")
+    print("Bitte nach links schauen.")
+    time.sleep(2)
     
     left_image_path = capture_image("left_view.png")
     if not left_image_path:
@@ -64,8 +68,9 @@ def setup():
     if left_angle == None:
         return None, None
 
-    print("Bitte nach rechts schauen und Enter drücken.")
-    input("Drücken Sie Enter, nachdem Sie bereit sind...")
+    print("Bitte nach rechts schauen.")
+    time.sleep(2)
+    
     right_image_path = capture_image("right_view.png")
     if not right_image_path:
         print("Fehler beim Aufnehmen des rechten Bildes.")
@@ -77,6 +82,10 @@ def setup():
 def monitor_angles(left_angle, right_angle):
     """Funktion zur Überwachung der Blickwinkel alle 10 Sekunden."""
     while True:
+        
+        if interrupt == True:
+            break
+        
         print("Neues Bild wird aufgenommen...")
         current_image_path = capture_image("current_view.png")
         if not current_image_path:
@@ -86,17 +95,20 @@ def monitor_angles(left_angle, right_angle):
         
         if current_angle == None:
             print("Warnung: Blickwinkel konnte nicht erfasst werden!")
+            focus = False
         elif current_angle > right_angle:
             print("Warnung: Person schaut weiter nach rechts als im Setup angegeben!")
+            focus = False
         elif current_angle < left_angle:
             print("Warnung: Person schaut weiter nach links als im Setup angegeben!")
+            focus = False
         else:
             print("Blickwinkel ist innerhalb des zulässigen Bereichs.")
+            focus = True
 
         time.sleep(10)  # 10 Sekunden warten
 
 def main():
-    print("Setup: Wir werden die Winkel für links und rechts aufnehmen.")
     left_angle, right_angle = setup()
 
     if left_angle is not None and right_angle is not None:

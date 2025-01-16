@@ -2,6 +2,8 @@ import asyncio
 from time import sleep
 from StateMaschine.state_machine import EducationStateMachine
 
+import distractionDetection.py as MILA
+
 from LLM.llm_query import MistralQuery
 from Face_Display.PyLips.pylips.speech import RobotFace
 from Face_Display.PyLips.pylips.face import FacePresets, ExpressionPresets
