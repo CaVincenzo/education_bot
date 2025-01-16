@@ -6,7 +6,7 @@ class EducationStateMachine(StateMachine):
     init = State('Init', initial=True)
     startedBot = State('Started Bot')
     free_learning = State('Free-Learning')
-    Q_and_A = State('Q&A')
+    Q_and_A = State('Fragerunde')
     attention = State('Getting Attention')
     completed = State('Completed')
 

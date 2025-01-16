@@ -1,34 +1,49 @@
 from StateMaschine.state_machine import EducationStateMachine
+from rapidfuzz import fuzz, process
+
 class CommandValidator:
-    stateref = None
     def __init__(self, state_machine):
         """
         Initialisiert den CommandValidator mit Abhängigkeiten.
         :param state_machine: Die State-Maschine zur Steuerung.
-        :param audio_recorder: Eine Instanz der AudioRecorder-Klasse zur Sprachaufnahme.
         """
         self.state_machine = state_machine
-
+        self.commands = {
+            "start": {
+                "action": self.state_machine.start_bot,
+                "synonyms": ["begin", "start bot", "activate bot"]
+            },
+            "free learning": {
+                "action": self.state_machine.start_free_learning,
+                "synonyms": ["learning mode", "starte freies lernen", "study mode", "freies Lernen", "start free learning"]
+            },
+            "fragerunde": {
+                "action": self.state_machine.start_Q_and_A,
+                "synonyms": ["q and a", "questions", "start fragerunde", "fragerunde", "start q&a"]
+            },
+            "end bot": {
+                "action": self.state_machine.reset_bot,
+                "synonyms": ["terminate", "stop bot", "end"]
+            }
+        }
 
     def validate_and_process(self, command: str):
         command = command.strip().lower()
 
-        if command == "start bot":
-            print("Command recognized: Start Bot")
-            self.state_machine.start_bot()
+        # Flache Liste aller möglichen Eingaben erstellen
+        flat_commands = {
+            synonym: key
+            for key, details in self.commands.items()
+            for synonym in [key] + details["synonyms"]
+        }
 
-        elif command == "start free learning":
-            print("Command recognized: Start Free Learning")
-            self.state_machine.start_free_learning()
+        # Fuzzy-Matching mit erlaubten Befehlen
+        match, score, _ = process.extractOne(command, flat_commands.keys(), scorer=fuzz.ratio)
 
-        elif command == "start fragerunde":
-            print("Command recognized: Start Fragerunde")
-            self.state_machine.start_Q_and_A()
-
-        elif command == "end bot":
-            print("Command recognized: End Bot")
-            self.state_machine.reset_bot()
-
+        # Schwellenwert für die Erkennung (z. B. 80%)
+        if score >= 75:
+            recognized_command = flat_commands[match]
+            print(f"Command recognized: {recognized_command} (Score: {score})")
+            self.commands[recognized_command]["action"]()  # Führe die zugehörige Aktion aus
         else:
-            print(f"Unknown command: '{command}'")
-
+            print(f"Unknown command: '{command}' (Best match: {match}, Score: {score})")
