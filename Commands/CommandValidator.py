@@ -1,28 +1,14 @@
+from StateMaschine.state_machine import EducationStateMachine
 class CommandValidator:
-    def __init__(self, state_machine, audio_recorder):
+    stateref = None
+    def __init__(self, state_machine):
         """
         Initialisiert den CommandValidator mit Abhängigkeiten.
         :param state_machine: Die State-Maschine zur Steuerung.
         :param audio_recorder: Eine Instanz der AudioRecorder-Klasse zur Sprachaufnahme.
         """
         self.state_machine = state_machine
-        self.audio_recorder = audio_recorder
 
-    def process_speech_command(self):
-        """
-        Nimmt einen Sprachbefehl auf, transkribiert ihn und verarbeitet ihn.
-        """
-        print("Recording your command. Hold the key and speak.")
-        audio_file_path = self.audio_recorder.start_audio_input("command.wav")
-
-        # Transkribiere den Sprachbefehl mit Whisper
-        recognized_command = self.audio_recorder.transcribe_with_whisper(audio_file_path)
-
-        if recognized_command:
-            print(f"Recognized command: {recognized_command}")
-            self.validate_and_process(recognized_command)
-        else:
-            print("Could not recognize any command.")
 
 def validate_and_process(self, command: str):
     command = command.strip().lower()

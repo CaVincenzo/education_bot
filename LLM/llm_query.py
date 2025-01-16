@@ -1,4 +1,3 @@
-import asyncio
 import requests
 import json
 import urllib3
@@ -22,7 +21,7 @@ class MistralQuery:
         """
         self.url = "https://dellfi.serv.uni-hohenheim.de/mistral"
 
-    async def query_Q_AND_A(self, context, prompt, Foliensatz_file_path, output_file_path):
+    def query_Q_AND_A(self, context, prompt, Foliensatz_file_path, output_file_path):
         """
         Kommuniziert mit dem Mistral LLM und verarbeitet Eingaben und Ausgaben unter Verwendung einer Eingabedatei.
 
@@ -44,7 +43,7 @@ class MistralQuery:
             full_prompt = full_context + "\n" + prompt
 
             # Anfrage an das LLM
-            return await self._send_request_async(full_prompt, output_file_path)
+            return  self._send_request(full_prompt, output_file_path)
 
         except Exception as err:
             return f"An error occurred in Q_AND_A: {err}"

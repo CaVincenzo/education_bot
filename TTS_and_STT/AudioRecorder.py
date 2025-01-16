@@ -46,6 +46,7 @@ class AudioRecorder:
                 print("End Recording")
                 
                 stream.stop_stream()
+                wavefile.close()
                 stream.close()
 
             return output_path
