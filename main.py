@@ -72,7 +72,7 @@ def main():
                     face.say("Let's start with Q&A!")
                     face.wait()
                     face.say("Was möchtest du wissen, drücke k um eine Frage zu stellen")
-                    # inplementierung was passieren soll für Q&A
+                    # inplementierung was passieren soll für Q&A geht noch nicht
                     if keyboard.is_pressed('k'):
                         audio_path = audio_recorder.start_audio_input()
                         if not os.path.exists(audio_path):
