@@ -1,4 +1,3 @@
-import asyncio
 import requests
 import json
 import urllib3
@@ -22,7 +21,7 @@ class MistralQuery:
         """
         self.url = "https://dellfi.serv.uni-hohenheim.de/mistral"
 
-    async def query_Q_AND_A(self, context, prompt, Foliensatz_file_path, output_file_path):
+    def query_Q_AND_A(self, context, prompt, Foliensatz_file_path, output_file_path):
         """
         Kommuniziert mit dem Mistral LLM und verarbeitet Eingaben und Ausgaben unter Verwendung einer Eingabedatei.
 
@@ -44,7 +43,7 @@ class MistralQuery:
             full_prompt = full_context + "\n" + prompt
 
             # Anfrage an das LLM
-            return await self._send_request_async(full_prompt, output_file_path)
+            return  self._send_request(full_prompt, output_file_path)
 
         except Exception as err:
             return f"An error occurred in Q_AND_A: {err}"
@@ -107,3 +106,17 @@ class MistralQuery:
             return f"HTTP error occurred: {http_err}"
         except Exception as err:
             return f"An error occurred_send_request: {err}"
+
+
+#  # Parameter definieren
+#     context = "Du bist ein Lehrassistenz-System für Medieninformatiker aus dem 6. Semester.\n"
+#     prompt = "Hallo bist du Online"
+#     input_file_path = "LLM\Input.txt"
+#     FL_output_file_path = "LLM\OutputFreeLearning.txt"
+#     Q_and_A_output_file_path = "LLM\OutputQandA.txt"
+#     # Rufe die Methode auf
+#     # FL_response = asyncio.run(llm_query.query_FreeLearning(context, prompt, FL_output_file_path))
+#     # print("Antwort des FL_LLMs:", FL_response)
+    
+#     FL_response = llm_query.query_FreeLearning(context, prompt, FL_output_file_path)
+#     print("Antwort des FL_LLMs:", FL_response)
