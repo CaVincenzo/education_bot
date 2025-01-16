@@ -106,3 +106,17 @@ class MistralQuery:
             return f"HTTP error occurred: {http_err}"
         except Exception as err:
             return f"An error occurred_send_request: {err}"
+
+
+#  # Parameter definieren
+#     context = "Du bist ein Lehrassistenz-System für Medieninformatiker aus dem 6. Semester.\n"
+#     prompt = "Hallo bist du Online"
+#     input_file_path = "LLM\Input.txt"
+#     FL_output_file_path = "LLM\OutputFreeLearning.txt"
+#     Q_and_A_output_file_path = "LLM\OutputQandA.txt"
+#     # Rufe die Methode auf
+#     # FL_response = asyncio.run(llm_query.query_FreeLearning(context, prompt, FL_output_file_path))
+#     # print("Antwort des FL_LLMs:", FL_response)
+    
+#     FL_response = llm_query.query_FreeLearning(context, prompt, FL_output_file_path)
+#     print("Antwort des FL_LLMs:", FL_response)
