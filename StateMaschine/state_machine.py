@@ -49,6 +49,9 @@ class EducationStateMachine(StateMachine):
         if self.current_state == self.startedBot:
             self.startedBot_to_free_learning()
             print("Transitioned to 'Free Learning' state.")
+        elif self.current_state == self.Q_and_A:
+            self.Q_and_A_to_free_learning()
+            print("Transitioned to 'Free Learning' state.")
 
     def start_Q_and_A(self):
         """
@@ -56,6 +59,9 @@ class EducationStateMachine(StateMachine):
         """
         if self.current_state == self.startedBot:
             self.startedBot_to_Q_and_A()
+            print("Transitioned to 'Q&A' state.")
+        elif self.current_state == self.free_learning:
+            self.free_learning_to_Q_and_A()
             print("Transitioned to 'Q&A' state.")
 
     def transition_to_attention(self):

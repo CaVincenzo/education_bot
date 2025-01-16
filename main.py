@@ -6,6 +6,7 @@ from Commands.CommandValidator import CommandValidator
 from Face_Display.pylips.speech import RobotFace
 from Face_Display.pylips.face import FacePresets, ExpressionPresets
 import keyboard
+from LLM.llm_query import MistralQuery
 
 def main():
     # Initialisiere die State-Maschine, AudioRecorder und RobotFace
@@ -13,6 +14,7 @@ def main():
     audio_recorder = AudioRecorder()
     face = RobotFace()  
     command_validator = CommandValidator(education_bot_stateM)
+    llmquery = MistralQuery()
     
 
     
@@ -69,8 +71,20 @@ def main():
                     face.express(ExpressionPresets.happy,1000000)
                     face.say("Let's start with Q&A!")
                     face.wait()
-                    face.say("Was möchtest du wissen?")
-                    # Hier kommt die Q&A-Logik rein mit llm, um die Fragen zu beantworten.
+                    face.say("Was möchtest du wissen, drücke k um eine Frage zu stellen")
+                    # inplementierung was passieren soll für Q&A
+                    if keyboard.is_pressed('k'):
+                        audio_path = audio_recorder.start_audio_input()
+                        if not os.path.exists(audio_path):
+                            print(f"Die Datei {audio_path} wurde nicht gefunden!")
+                        else:
+                            print(f"Die Datei {audio_path} existiert und ist zugänglich.")
+                            audioString = audio_recorder.transcribe_with_whisper("./" +audio_path)
+                            print(f"Transkribierter Text: {audioString}")
+                            response = llmquery.query_Q_AND_A("","Was ist die Antwort auf die Frage: "+audioString, "","")
+                            face.say(response)
+                            face.wait()
+                    
 
                 elif current_state == education_bot_stateM.free_learning:
                     # Bot wechselt zu Free-Learning-Modus
