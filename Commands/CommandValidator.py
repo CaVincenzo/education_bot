@@ -2,12 +2,13 @@ from StateMaschine.state_machine import EducationStateMachine
 from rapidfuzz import fuzz, process
 
 class CommandValidator:
-    def __init__(self, state_machine):
+    def __init__(self, state_machine,face):
         """
         Initialisiert den CommandValidator mit Abhängigkeiten.
         :param state_machine: Die State-Maschine zur Steuerung.
         """
         self.state_machine = state_machine
+        self.face = face
         self.commands = {
             "start": {
                 "action": self.state_machine.start_bot,
@@ -47,3 +48,5 @@ class CommandValidator:
             self.commands[recognized_command]["action"]()  # Führe die zugehörige Aktion aus
         else:
             print(f"Unknown command: '{command}' (Best match: {match}, Score: {score})")
+            self.face.say("Ich habe dich nicht verstanden. Bitte wiederhole deinen Befehl.")
+            

@@ -15,17 +15,16 @@ class EducationStateMachine(StateMachine):
 
     startedBot_to_free_learning = startedBot.to(free_learning)
     startedBot_to_Q_and_A = startedBot.to(Q_and_A)
+    startedBot_to_completed = startedBot.to(completed)
 
     free_learning_to_Q_and_A = free_learning.to(Q_and_A)
     free_learning_to_attention = free_learning.to(attention)
     free_learning_to_completed = free_learning.to(completed)
 
     Q_and_A_to_free_learning = Q_and_A.to(free_learning)
-    Q_and_A_to_attention = Q_and_A.to(attention)
     Q_and_A_to_completed = Q_and_A.to(completed)
 
     attention_to_free_learning = attention.to(free_learning)
-    attention_to_Q_and_A = attention.to(Q_and_A)
     attention_to_completed = attention.to(completed)
 
     reset = completed.to(init)
@@ -52,6 +51,9 @@ class EducationStateMachine(StateMachine):
         elif self.current_state == self.Q_and_A:
             self.Q_and_A_to_free_learning()
             print("Transitioned to 'Free Learning' state.")
+        elif self.current_state == self.attention:
+            self.attention_to_free_learning()
+            print("Transitioned to 'Free Learning' state.")
 
     def start_Q_and_A(self):
         """
@@ -66,13 +68,10 @@ class EducationStateMachine(StateMachine):
 
     def transition_to_attention(self):
         """
-        Transition from Free Learning or Q&A to Attention.
+        Transition from Free Learning  to Attention.
         """
         if self.current_state == self.free_learning:
             self.free_learning_to_attention()
-            print("Transitioned to 'Getting Attention' state.")
-        elif self.current_state == self.Q_and_A:
-            self.Q_and_A_to_attention()
             print("Transitioned to 'Getting Attention' state.")
 
     def transition_to_completed(self):
@@ -81,6 +80,8 @@ class EducationStateMachine(StateMachine):
         """
         if self.current_state == self.free_learning:
             self.free_learning_to_completed()
+        elif self.current_state == self.start_bot:
+            self.startedBot_to_completed()
         elif self.current_state == self.Q_and_A:
             self.Q_and_A_to_completed()
         elif self.current_state == self.attention:

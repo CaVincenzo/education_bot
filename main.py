@@ -13,33 +13,35 @@ def main():
     education_bot_stateM = EducationStateMachine()
     audio_recorder = AudioRecorder()
     face = RobotFace()  
-    command_validator = CommandValidator(education_bot_stateM)
+    command_validator = CommandValidator(education_bot_stateM,face)
     llmquery = MistralQuery()
     
-
+    # Testen der LLM-Abfrage
+    # context = "Du bist ein Lehrassistenz-System für Medieninformatiker aus dem 7. Semester.\n"
+    # Q_and_A_output_file_path = "LLM\OutputQandA.txt"
+    # Foliensatz_file_path = "LLM\Foliensatz.txt"
+    # response = llmquery.query_Q_AND_A(context,"Testfrage Bist du Online",Foliensatz_file_path, Q_and_A_output_file_path)
+    # print("Response from llm" + response)
     
     # Setze das Gesicht in den Schlafmodus
     face.set_appearance(FacePresets.sleep)
     face.wait()
     print(f"Initial State: {education_bot_stateM.current_state}")
     print("The bot is sleeping. Sage 'Start' um Ihn aufzuwecken, druecke l um die Aufnahme zu starten.")
-    face.express(ExpressionPresets.sleep,100000000)
+    face.express(ExpressionPresets.sleep,100000000000000000000000000000000000000000000000000000000000000000000000000000)
     face.wait()
     
-    face.say("Ich schlafe. Sage 'Start' um mich aufzuwecken, drücke l um die Aufnahme zu starten.")
+    face.say("Ich schlafe. Sage 'Start' oder 'Begin' um mich aufzuwecken, für die Aufnahme drücke l gedrückt")
     face.wait()
     
     # Speichere den letzten verarbeiteten Zustand
     last_processed_state = None
     
-    
-    
-    
     try:
         while True:
             # Überprüfe den Zustand der State-Maschine
             pressed_key = audio_recorder.get_pressed_key()
-            current_state = education_bot_stateM.Q_and_A
+            current_state = education_bot_stateM.current_state
 
             
             if pressed_key == 'l':
@@ -67,9 +69,14 @@ def main():
                         Foliensatz_file_path = "LLM\Foliensatz.txt"
                         print(f"Transkribierter Text: {prompt}")
                         
-                        llmquery.query_Q_AND_A(context,"Was ist die Antwort auf die Frage: "+prompt,Foliensatz_file_path, Q_and_A_output_file_path)
-                        face.say(Q_and_A_output_file_path)
+                        response = llmquery.query_Q_AND_A(context,"Was ist die Antwort auf die Frage: "+prompt,Foliensatz_file_path, Q_and_A_output_file_path)
+                        # print(f"Response from llm{response}" )
                         
+                        face.say(response)
+                        face.wait()
+                        
+                        face.say("Möchtest du noch eine Frage stellen?, dann drücke k für das starten der Aufnahme gedrückt")
+                        face.wait()
                     
             if current_state != last_processed_state:    
                 if current_state == education_bot_stateM.init:
