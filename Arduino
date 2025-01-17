@@ -1,0 +1,18 @@
+import serial
+import time
+
+def wave(image_path):
+    # Seriellen Port für die Kommunikation mit dem Arduino festlegen
+    # Ersetze 'COM3' mit dem Port, an dem dein Arduino angeschlossen ist
+    ser = serial.Serial('COM3', 9600)
+    time.sleep(2)  # Warten, bis die Verbindung hergestellt ist
+
+    # Drehen des Motors (Befehl 'D' senden)
+    ser.write(b'D')  # Sende den Befehl 'D' an den Arduino (Motor startet)
+    time.sleep(5)  # 5 Sekunden warten (Servo dreht sich)
+
+    # Stoppen des Motors (Befehl 'S' senden)
+    ser.write(b'S')  # Sende den Befehl 'S' an den Arduino (Motor stoppt)
+
+    # Schließen der seriellen Verbindung
+    ser.close()
