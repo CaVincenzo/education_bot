@@ -115,8 +115,6 @@ class MistralQuery:
 #     FL_output_file_path = "LLM\OutputFreeLearning.txt"
 #     Q_and_A_output_file_path = "LLM\OutputQandA.txt"
 #     # Rufe die Methode auf
-#     # FL_response = asyncio.run(llm_query.query_FreeLearning(context, prompt, FL_output_file_path))
-#     # print("Antwort des FL_LLMs:", FL_response)
+#     
     
-#     FL_response = llm_query.query_FreeLearning(context, prompt, FL_output_file_path)
-#     print("Antwort des FL_LLMs:", FL_response)
+#     
