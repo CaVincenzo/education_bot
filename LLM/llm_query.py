@@ -34,7 +34,7 @@ class MistralQuery:
         try:
             # Inhalte aus der Eingabedatei lesen
             try:
-                context_content = Path(Foliensatz_file_path).read_text()
+                context_content = Path(Foliensatz_file_path).read_text(encoding="utf-8")
             except FileNotFoundError:
                 context_content = "Die benötigte Datei wurde nicht gefunden. Bitte stellen Sie sicher, dass die Eingabedatei vorhanden ist."
 
@@ -85,10 +85,13 @@ class MistralQuery:
                 "prompt": full_prompt
             }
             response = requests.post(self.url, json=data, verify=False)
-            print(response._content)
+            
+            # print(response._content.decode("utf-8"))
+            
             if response.status_code == 200:
                 lines = response.text.splitlines()
-                full_response = ""
+                full_response = "" # Variable für die Gesamtantwort des LLM
+                
                 for line in lines:
                     message = json.loads(line)
                     full_response += message["response"]
@@ -96,7 +99,7 @@ class MistralQuery:
                         break
 
                 # Antwort in die Ausgabedatei schreiben
-                Path(output_file_path).write_text(full_response)
+                Path(output_file_path).write_text(full_response, encoding="utf-8")
 
                 return  full_response
             else:
@@ -115,8 +118,6 @@ class MistralQuery:
 #     FL_output_file_path = "LLM\OutputFreeLearning.txt"
 #     Q_and_A_output_file_path = "LLM\OutputQandA.txt"
 #     # Rufe die Methode auf
-#     # FL_response = asyncio.run(llm_query.query_FreeLearning(context, prompt, FL_output_file_path))
-#     # print("Antwort des FL_LLMs:", FL_response)
+#     
     
-#     FL_response = llm_query.query_FreeLearning(context, prompt, FL_output_file_path)
-#     print("Antwort des FL_LLMs:", FL_response)
+#     

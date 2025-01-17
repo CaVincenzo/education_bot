@@ -13,42 +13,70 @@ def main():
     education_bot_stateM = EducationStateMachine()
     audio_recorder = AudioRecorder()
     face = RobotFace()  
-    command_validator = CommandValidator(education_bot_stateM)
+    command_validator = CommandValidator(education_bot_stateM,face)
     llmquery = MistralQuery()
     
-
+    # Testen der LLM-Abfrage
+    # context = "Du bist ein Lehrassistenz-System für Medieninformatiker aus dem 7. Semester.\n"
+    # Q_and_A_output_file_path = "LLM\OutputQandA.txt"
+    # Foliensatz_file_path = "LLM\Foliensatz.txt"
+    # response = llmquery.query_Q_AND_A(context,"Testfrage Bist du Online",Foliensatz_file_path, Q_and_A_output_file_path)
+    # print("Response from llm" + response)
     
     # Setze das Gesicht in den Schlafmodus
     face.set_appearance(FacePresets.sleep)
     face.wait()
     print(f"Initial State: {education_bot_stateM.current_state}")
     print("The bot is sleeping. Sage 'Start' um Ihn aufzuwecken, druecke l um die Aufnahme zu starten.")
-    face.express(ExpressionPresets.sleep,100000000)
+    face.express(ExpressionPresets.sleep,100000000000000000000000000000000000000000000000000000000000000000000000000000)
     face.wait()
     
-    face.say("Ich schlafe. Sage 'Start' um mich aufzuwecken, drücke l um die Aufnahme zu starten.")
+    face.say("Ich schlafe. Sage 'Start' oder 'Begin' um mich aufzuwecken, für die Aufnahme drücke l gedrückt")
     face.wait()
     
     # Speichere den letzten verarbeiteten Zustand
     last_processed_state = None
     
-    
     try:
         while True:
             # Überprüfe den Zustand der State-Maschine
+            pressed_key = audio_recorder.get_pressed_key()
             current_state = education_bot_stateM.current_state
+
             
-            if keyboard.is_pressed("l"):
-                
+            if pressed_key == 'l':
+
+                    audio_path = audio_recorder.start_audio_input()
+                    
+                    if audio_path is None:
+                        print("Keine Aufnahme erfolgt. Bitte versuchen Sie es erneut.")
+                    else:
+                        print(f"Die Datei {audio_path} wurde erfolgreich aufgenommen.")
+                        audioString = audio_recorder.transcribe_with_whisper("./" +audio_path)
+                        print(f"Transkribierter Text: {audioString}")
+                        command_validator.validate_and_process(audioString)
+            
+            elif pressed_key == 'k':
+                # erstellung von Prompts
                     audio_path = audio_recorder.start_audio_input()
                     
                     if not os.path.exists(audio_path):
                         print(f"Die Datei {audio_path} wurde nicht gefunden!")
                     else:
-                        print(f"Die Datei {audio_path} existiert und ist zugänglich.")
-                        audioString = audio_recorder.transcribe_with_whisper("./" +audio_path)
-                        print(f"Transkribierter Text: {audioString}")
-                        command_validator.validate_and_process(audioString)
+                        prompt = audio_recorder.transcribe_with_whisper("./" +audio_path)
+                        context = "Du bist ein Lehrassistenz-System für Medieninformatiker aus dem 7. Semester.\n"
+                        Q_and_A_output_file_path = "LLM\OutputQandA.txt"
+                        Foliensatz_file_path = "LLM\Foliensatz.txt"
+                        print(f"Transkribierter Text: {prompt}")
+                        
+                        response = llmquery.query_Q_AND_A(context,"Was ist die Antwort auf die Frage: "+prompt,Foliensatz_file_path, Q_and_A_output_file_path)
+                        # print(f"Response from llm{response}" )
+                        
+                        face.say(response)
+                        face.wait()
+                        
+                        face.say("Möchtest du noch eine Frage stellen?, dann drücke k für das starten der Aufnahme gedrückt")
+                        face.wait()
                     
             if current_state != last_processed_state:    
                 if current_state == education_bot_stateM.init:
@@ -69,27 +97,17 @@ def main():
                     # Bot wechselt zu Q&A-Modus
                     face.set_appearance(FacePresets.default)
                     face.express(ExpressionPresets.happy,1000000)
-                    face.say("Let's start with Q&A!")
+                    face.say("Lass uns mit der Fragerunde starten, Was möchtest du wissen, drücke k um eine Frage zu stellen")
                     face.wait()
-                    face.say("Was möchtest du wissen, drücke k um eine Frage zu stellen")
+                    
                     # inplementierung was passieren soll für Q&A geht noch nicht
-                    if keyboard.is_pressed('k'):
-                        audio_path = audio_recorder.start_audio_input()
-                        if not os.path.exists(audio_path):
-                            print(f"Die Datei {audio_path} wurde nicht gefunden!")
-                        else:
-                            print(f"Die Datei {audio_path} existiert und ist zugänglich.")
-                            audioString = audio_recorder.transcribe_with_whisper("./" +audio_path)
-                            print(f"Transkribierter Text: {audioString}")
-                            response = llmquery.query_Q_AND_A("","Was ist die Antwort auf die Frage: "+audioString, "","")
-                            face.say(response)
-                            face.wait()
+                    
                     
 
                 elif current_state == education_bot_stateM.free_learning:
                     # Bot wechselt zu Free-Learning-Modus
-                    face.set_appearance(FacePresets.cutie)
-                    face.express(ExpressionPresets.happy)
+                    face.set_appearance(FacePresets.default)
+                    face.express(ExpressionPresets.happy,10000)
                     face.say("Let's start with Free Learning!")
                     face.wait()
                     # Hier kommt Attentionlogic rein. Wenn der Bot merkt, dass der Nutzer nicht mehr aktiv ist, soll er in den Attention-Modus wechseln.
@@ -97,7 +115,7 @@ def main():
                 elif current_state == education_bot_stateM.completed:
                     # Bot beendet den Prozess
                     face.set_appearance(FacePresets.default)
-                    face.express(ExpressionPresets.sad)
+                    face.express(ExpressionPresets.sad,1000)
                     face.say("Bye, see you next time!")
                     face.wait()
                     break  # Beende die Schleife
