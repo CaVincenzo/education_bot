@@ -3,10 +3,12 @@ from time import sleep
 from StateMaschine.state_machine import EducationStateMachine
 from TTS_and_STT.AudioRecorder import AudioRecorder
 from Commands.CommandValidator import CommandValidator
-from Face_Display.pylips.speech import RobotFace
-from Face_Display.pylips.face import FacePresets, ExpressionPresets
+from pylips.speech import RobotFace
+from pylips.face import FacePresets, ExpressionPresets
 import keyboard
+import subprocess
 from LLM.llm_query import MistralQuery
+
 
 def main():
     # Initialisiere die State-Maschine, AudioRecorder und RobotFace
@@ -36,13 +38,28 @@ def main():
     
     # Speichere den letzten verarbeiteten Zustand
     last_processed_state = None
+    # Variable für den Subprozess
+    attentionProcess = None
     
     try:
         while True:
             # Überprüfe den Zustand der State-Maschine
             pressed_key = audio_recorder.get_pressed_key()
             current_state = education_bot_stateM.current_state
-
+            
+                # Zustand "free_learning" (Subprozess starten)
+            if current_state == education_bot_stateM.free_learning:
+                if attentionProcess is None or attentionProcess.poll() is not None:
+                    print("Starte Subprozess für Aufmerksamkeitserkennung...")
+                    attentionProcess = subprocess.Popen(["python", "HeadPoseEstimation/distractionDetection.py"])
+            
+            # Zustandswechsel (Subprozess beenden)
+            elif current_state != education_bot_stateM.free_learning:
+                if attentionProcess is not None:
+                    print("Beende Subprozess für Aufmerksamkeitserkennung...")
+                    attentionProcess.terminate()
+                    attentionProcess.wait()  # Warte, bis der Subprozess beendet ist
+                    attentionProcess = None
             
             if pressed_key == 'l':
 
@@ -53,7 +70,7 @@ def main():
                     else:
                         print(f"Die Datei {audio_path} wurde erfolgreich aufgenommen.")
                         audioString = audio_recorder.transcribe_with_whisper("./" +audio_path)
-                        print(f"Transkribierter Text: {audioString}")
+                        print(f"Transkribierter Text: {audioString.encode('ascii',errors='replace')}")
                         command_validator.validate_and_process(audioString)
             
             elif pressed_key == 'k':
@@ -102,16 +119,14 @@ def main():
                     
                     # inplementierung was passieren soll für Q&A geht noch nicht
                     
-                    
-
                 elif current_state == education_bot_stateM.free_learning:
                     # Bot wechselt zu Free-Learning-Modus
                     face.set_appearance(FacePresets.default)
                     face.express(ExpressionPresets.happy,10000)
                     face.say("Let's start with Free Learning!")
                     face.wait()
-                    # Hier kommt Attentionlogic rein. Wenn der Bot merkt, dass der Nutzer nicht mehr aktiv ist, soll er in den Attention-Modus wechseln.
-
+                    
+                    
                 elif current_state == education_bot_stateM.completed:
                     # Bot beendet den Prozess
                     face.set_appearance(FacePresets.default)

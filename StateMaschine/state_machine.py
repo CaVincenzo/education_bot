@@ -66,14 +66,6 @@ class EducationStateMachine(StateMachine):
             self.free_learning_to_Q_and_A()
             print("Transitioned to 'Q&A' state.")
 
-    def transition_to_attention(self):
-        """
-        Transition from Free Learning  to Attention.
-        """
-        if self.current_state == self.free_learning:
-            self.free_learning_to_attention()
-            print("Transitioned to 'Getting Attention' state.")
-
     def transition_to_completed(self):
         """
         Transition from any state to Completed.

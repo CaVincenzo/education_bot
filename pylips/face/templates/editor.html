@@ -1,0 +1,76 @@
+<html>
+
+<head>
+	<title>CoRDial Face</title>
+	<style>
+		canvas {
+       	 z-index: -1;
+    	}
+	</style>
+</head>
+
+<body>
+	<script src="{{ url_for('static', filename='js/socketio.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/canvasFace.js') }}"></script>
+
+	<script src="{{ url_for('static', filename='js/dat.gui.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/facecontrol.js') }}"></script>
+
+
+
+	<script>
+		const name = document.title
+		var socket = io();
+
+		socket.on('face_control', function (msg) {
+			console.log('message to ' + msg.name + ' : ' + msg.action_type);
+			if (msg.name != name) {
+				return
+			}
+
+			if (msg.action_type == 'say') {
+				play_visemes(msg.visemes, 55, msg.times)
+			}
+
+			if (msg.action_type == 'stop_speech') {
+				stop_visemes()
+			}
+
+			if (msg.action_type == 'look') {
+				console.log('Calling lookat');
+				lookat(msg.location[0], msg.location[1], msg.location[2], msg.time)
+				looking = true //stops the idle movements
+			}
+
+			if (msg.action_type == 'release_gaze') {
+				looking = false //starts the idle movements
+			}
+
+			if (msg.action_type == 'express') {
+				time = msg.time
+				for (var au_cmd in msg.aus) {
+					au_number = parseInt(au_cmd.slice(2))
+					// if the last character is 'l' or 'r', it's a side command
+					// if it is a number, au() will assume both sides
+					side = au_cmd.slice(-1)
+					degree = parseFloat(msg.aus[au_cmd])
+					au(au_number, degree, side, time)
+				}
+			}
+
+			if (msg.action_type == 'update_face') {
+
+				Object.keys(params).forEach(key => {
+					if (msg.configuration.hasOwnProperty(key)) {
+						params[key] = msg.configuration[key]
+					}
+				});
+			}
+
+		});
+
+	</script>
+
+</body>
+
+</html>
