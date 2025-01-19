@@ -23,8 +23,8 @@ class CommandValidator:
                 "synonyms": ["q and a", "questions", "start fragerunde", "fragerunde", "start q&a"]
             },
             "end bot": {
-                "action": self.state_machine.reset_bot,
-                "synonyms": ["terminate", "stop bot", "end"]
+                "action": self.state_machine.transition_to_completed,
+                "synonyms": ["terminate", "stop bot", "end","end bot","fertig mit lernen","beenden"]
             }
         }
 

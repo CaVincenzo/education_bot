@@ -26,14 +26,13 @@ def main():
     # print("Response from llm" + response)
     
     # Setze das Gesicht in den Schlafmodus
-    face.set_appearance(FacePresets.sleep)
-    face.wait()
+   
     print(f"Initial State: {education_bot_stateM.current_state}")
-    print("The bot is sleeping. Sage 'Start' um Ihn aufzuwecken, druecke l um die Aufnahme zu starten.")
-    face.express(ExpressionPresets.sleep,100000000000000000000000000000000000000000000000000000000000000000000000000000)
-    face.wait()
-    
-    face.say("Ich schlafe. Sage 'Start' oder 'Begin' um mich aufzuwecken, für die Aufnahme drücke l gedrückt")
+    print(" Sage 'Start' um Ihn aufzuwecken, druecke l um die Aufnahme zu starten.")
+    face.set_appearance(FacePresets.default)
+    face.express(ExpressionPresets.happy, 10000)
+    face.wait() 
+    face.say(" Sage 'Start' oder 'Begin' um Mila zu starten, für die Aufnahme drücke l gedrückt")
     face.wait()
     
     # Speichere den letzten verarbeiteten Zustand
@@ -47,7 +46,7 @@ def main():
             pressed_key = audio_recorder.get_pressed_key()
             current_state = education_bot_stateM.current_state
             
-                # Zustand "free_learning" (Subprozess starten)
+            # Zustand "free_learning" (Subprozess starten)
             if current_state == education_bot_stateM.free_learning:
                 if attentionProcess is None or attentionProcess.poll() is not None:
                     print("Starte Subprozess für Aufmerksamkeitserkennung...")
@@ -61,6 +60,7 @@ def main():
                     attentionProcess.wait()  # Warte, bis der Subprozess beendet ist
                     attentionProcess = None
             
+            # Audioaufnahme starten
             if pressed_key == 'l':
 
                     audio_path = audio_recorder.start_audio_input()
@@ -72,7 +72,8 @@ def main():
                         audioString = audio_recorder.transcribe_with_whisper("./" +audio_path)
                         print(f"Transkribierter Text: {audioString.encode('ascii',errors='replace')}")
                         command_validator.validate_and_process(audioString)
-            
+                        
+            #Logic um ein Prompt zu erstellen und eine Frage zu stellen
             elif pressed_key == 'k':
                 # erstellung von Prompts
                     audio_path = audio_recorder.start_audio_input()
@@ -94,45 +95,40 @@ def main():
                         
                         face.say("Möchtest du noch eine Frage stellen?, dann drücke k für das starten der Aufnahme gedrückt")
                         face.wait()
-                    
+                        
+            # Überprüfe, ob sich der Zustand geändert hat, damit der selbe Zustand nicht mehrmals verarbeitet wird
             if current_state != last_processed_state:    
+                
                 if current_state == education_bot_stateM.init:
-                    face.set_appearance(FacePresets.sleep)
-                    face.express(ExpressionPresets.sleep, 100000000)
+                    
+                    face.express(ExpressionPresets.happy, 100000000)
                     face.wait()
                     
 
                 elif current_state == education_bot_stateM.startedBot:
+                    print(f" current state: {current_state}")
                     # Bot erwacht und begrüßt den Nutzer
                     face.set_appearance(FacePresets.default)
                     face.express(ExpressionPresets.happy, 100000000)
+                    face.wait()
                     face.say("Hallo, ich bin Mila dein Education Bot. Wie kann ich dir helfen? Welcher Modus soll gestartet werden? Feies Lernen oder Fragerunde?")
                     face.wait()
-                    
+                    #logic für winken
 
                 elif current_state == education_bot_stateM.Q_and_A:
+                    print(f" current state: {current_state}")
                     # Bot wechselt zu Q&A-Modus
-                    face.set_appearance(FacePresets.default)
                     face.express(ExpressionPresets.happy,1000000)
+                    face.wait()
                     face.say("Lass uns mit der Fragerunde starten, Was möchtest du wissen, drücke k um eine Frage zu stellen")
                     face.wait()
                     
-                    # inplementierung was passieren soll für Q&A geht noch nicht
-                    
-                elif current_state == education_bot_stateM.free_learning:
-                    # Bot wechselt zu Free-Learning-Modus
-                    face.set_appearance(FacePresets.default)
-                    face.express(ExpressionPresets.happy,10000)
-                    face.say("Let's start with Free Learning!")
-                    face.wait()
-                    
-                    
                 elif current_state == education_bot_stateM.completed:
+                    print(f" current state: {current_state}")
                     # Bot beendet den Prozess
-                    face.set_appearance(FacePresets.default)
-                    face.express(ExpressionPresets.sad,1000)
                     face.say("Bye, see you next time!")
                     face.wait()
+                    #logic für winken
                     break  # Beende die Schleife
             
                 # Aktualisiere den zuletzt verarbeiteten Zustand

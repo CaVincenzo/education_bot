@@ -5,7 +5,7 @@ from PIL import Image
 import numpy as np
 import math
 import time
-from pylips.speech import RobotFace
+from pylips.speech import RobotFace, ExpressionPresets
 
 
 interrupt = False
@@ -134,6 +134,9 @@ def setup():
     right_angle = analyze_image_with_yolo(right_image_path)
     
     face.say("Kalibrierung abgeschlossen.")
+    face.wait()
+    face.express(ExpressionPresets.happy, 10000)
+    face.say("Viel spaß beim freien lernen.")
     face.wait()
 
     return left_angle, right_angle

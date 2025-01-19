@@ -7,7 +7,6 @@ class EducationStateMachine(StateMachine):
     startedBot = State('Started Bot')
     free_learning = State('Free-Learning')
     Q_and_A = State('Fragerunde')
-    attention = State('Getting Attention')
     completed = State('Completed')
 
     # Transitions
@@ -18,14 +17,10 @@ class EducationStateMachine(StateMachine):
     startedBot_to_completed = startedBot.to(completed)
 
     free_learning_to_Q_and_A = free_learning.to(Q_and_A)
-    free_learning_to_attention = free_learning.to(attention)
     free_learning_to_completed = free_learning.to(completed)
 
     Q_and_A_to_free_learning = Q_and_A.to(free_learning)
     Q_and_A_to_completed = Q_and_A.to(completed)
-
-    attention_to_free_learning = attention.to(free_learning)
-    attention_to_completed = attention.to(completed)
 
     reset = completed.to(init)
 
@@ -51,9 +46,6 @@ class EducationStateMachine(StateMachine):
         elif self.current_state == self.Q_and_A:
             self.Q_and_A_to_free_learning()
             print("Transitioned to 'Free Learning' state.")
-        elif self.current_state == self.attention:
-            self.attention_to_free_learning()
-            print("Transitioned to 'Free Learning' state.")
 
     def start_Q_and_A(self):
         """
@@ -72,21 +64,19 @@ class EducationStateMachine(StateMachine):
         """
         if self.current_state == self.free_learning:
             self.free_learning_to_completed()
-        elif self.current_state == self.start_bot:
+        elif self.current_state == self.startedBot:
             self.startedBot_to_completed()
         elif self.current_state == self.Q_and_A:
             self.Q_and_A_to_completed()
-        elif self.current_state == self.attention:
-            self.attention_to_completed()
         print("Transitioned to 'Completed' state.")
 
-    def reset_bot(self):
+    def close_bot(self):
         """
-        Reset to the initial state.
+        Close Bot.
         """
         if self.current_state == self.completed:
+            print("Bot wird beendet.")
             self.reset()
-            print("Bot reset to 'Init' state.")
 
     # Transition hooks
     def on_init_to_startedBot(self):
@@ -97,18 +87,18 @@ class EducationStateMachine(StateMachine):
 
     def on_startedBot_to_Q_and_A(self):
         print("Transitioned from Started Bot to Q&A.")
-
-    def on_free_learning_to_attention(self):
-        print("Transitioned from Free Learning to Getting Attention.")
+    
+    def on_startedBot_to_completed(self):
+        print("Transitioned from Started Bot to Completed.")
 
     def on_free_learning_to_completed(self):
         print("Transitioned from Free Learning to Completed.")
-
-    def on_Q_and_A_to_attention(self):
-        print("Transitioned from Q&A to Getting Attention.")
+    
+    def on_free_learning_to_Q_and_A(self):
+        print("Transitioned from Free Learning to Q&A.")
 
     def on_Q_and_A_to_completed(self):
         print("Transitioned from Q&A to Completed.")
-
-    def on_reset(self):
-        print("Reset to Init.")
+    
+    def on_Q_and_A_to_free_learning(self):
+        print("Transitioned from Q&A to Free Learning.")
