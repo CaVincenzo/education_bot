@@ -8,6 +8,7 @@ from pylips.face import FacePresets, ExpressionPresets
 import keyboard
 import subprocess
 from LLM.llm_query import MistralQuery
+from Arduino.arduino__control import ArduinoController
 
 
 def main():
@@ -17,6 +18,8 @@ def main():
     face = RobotFace()  
     command_validator = CommandValidator(education_bot_stateM,face)
     llmquery = MistralQuery()
+    arduino = ArduinoController(port='COM3', baud_rate=9600)
+     
     
     # Testen der LLM-Abfrage
     # context = "Du bist ein Lehrassistenz-System für Medieninformatiker aus dem 7. Semester.\n"
@@ -34,6 +37,7 @@ def main():
     face.wait() 
     face.say(" Sage 'Start' oder 'Begin' um Mila zu starten, für die Aufnahme drücke l gedrückt")
     face.wait()
+    
     
     # Speichere den letzten verarbeiteten Zustand
     last_processed_state = None
@@ -113,6 +117,7 @@ def main():
                     face.wait()
                     face.say("Hallo, ich bin Mila dein Education Bot. Wie kann ich dir helfen? Welcher Modus soll gestartet werden? Feies Lernen oder Fragerunde?")
                     face.wait()
+                    arduino.wave()
                     #logic für winken
 
                 elif current_state == education_bot_stateM.Q_and_A:

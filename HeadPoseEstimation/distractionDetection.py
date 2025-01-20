@@ -6,10 +6,12 @@ import numpy as np
 import math
 import time
 from pylips.speech import RobotFace, ExpressionPresets
+from Arduino.arduino__control import ArduinoController
 
 
 interrupt = False
 face = RobotFace()  
+arduino = ArduinoController(port='COM3', baud_rate=9600)
 
 
 def focus_check():
@@ -21,7 +23,7 @@ def focus_check():
         
         if FocusCounter == 2:
             print("Winken.")
-            # Logik für Handbewegung
+            arduino.wave()
             
         elif FocusCounter == 3:
             print("Der Benutzer ist abgelenkt.")

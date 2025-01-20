@@ -1,7 +1,7 @@
 import serial
 import time
 
-def wave(image_path):
+def wave():
     # Seriellen Port für die Kommunikation mit dem Arduino festlegen
     # Ersetze 'COM3' mit dem Port, an dem dein Arduino angeschlossen ist
     ser = serial.Serial('COM3', 9600)
@@ -16,3 +16,4 @@ def wave(image_path):
 
     # Schließen der seriellen Verbindung
     ser.close()
+
