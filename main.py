@@ -34,7 +34,7 @@ def main():
     print(" Sage 'Start' um Ihn aufzuwecken, druecke l um die Aufnahme zu starten.")
     face.set_appearance(FacePresets.default)
     face.express(ExpressionPresets.happy, 10000)
-    face.wait() 
+    face.wait()
     face.say(" Sage 'Start' oder 'Begin' um Mila zu starten, für die Aufnahme drücke l gedrückt")
     face.wait()
     
@@ -44,17 +44,20 @@ def main():
     # Variable für den Subprozess
     attentionProcess = None
     
+    # Absoluten Pfad zur distractionDetection.py ermitteln
+    script_path = os.path.join(os.getcwd(), "HeadPoseEstimation", "distractionDetection.py")
+    
     try:
         while True:
             # Überprüfe den Zustand der State-Maschine
             pressed_key = audio_recorder.get_pressed_key()
-            current_state = education_bot_stateM.current_state
+            current_state = education_bot_stateM.free_learning
             
             # Zustand "free_learning" (Subprozess starten)
             if current_state == education_bot_stateM.free_learning:
                 if attentionProcess is None or attentionProcess.poll() is not None:
                     print("Starte Subprozess für Aufmerksamkeitserkennung...")
-                    attentionProcess = subprocess.Popen(["python", "HeadPoseEstimation/distractionDetection.py"])
+                    attentionProcess = subprocess.Popen(["python", script_path],cwd=os.getcwd())
             
             # Zustandswechsel (Subprozess beenden)
             elif current_state != education_bot_stateM.free_learning:
@@ -115,9 +118,9 @@ def main():
                     face.set_appearance(FacePresets.default)
                     face.express(ExpressionPresets.happy, 100000000)
                     face.wait()
+                    arduino.wave()
                     face.say("Hallo, ich bin Mila dein Education Bot. Wie kann ich dir helfen? Welcher Modus soll gestartet werden? Feies Lernen oder Fragerunde?")
                     face.wait()
-                    arduino.wave()
                     #logic für winken
 
                 elif current_state == education_bot_stateM.Q_and_A:

@@ -1,11 +1,16 @@
+import os
 import random
+import sys
 import cv2
 from ultralytics import YOLO
 from PIL import Image
 import numpy as np
 import math
 import time
-from pylips.speech import RobotFace, ExpressionPresets
+from pylips.speech import RobotFace
+
+# Füge das Hauptverzeichnis zum Modulpfad hinzu
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from Arduino.arduino__control import ArduinoController
 
 
@@ -137,7 +142,6 @@ def setup():
     
     face.say("Kalibrierung abgeschlossen.")
     face.wait()
-    face.express(ExpressionPresets.happy, 10000)
     face.say("Viel spaß beim freien lernen.")
     face.wait()
 
