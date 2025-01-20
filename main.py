@@ -44,20 +44,18 @@ def main():
     # Variable für den Subprozess
     attentionProcess = None
     
-    # Absoluten Pfad zur distractionDetection.py ermitteln
-    script_path = os.path.join(os.getcwd(), "HeadPoseEstimation", "distractionDetection.py")
     
     try:
         while True:
             # Überprüfe den Zustand der State-Maschine
             pressed_key = audio_recorder.get_pressed_key()
-            current_state = education_bot_stateM.free_learning
+            current_state = education_bot_stateM.current_state
             
             # Zustand "free_learning" (Subprozess starten)
             if current_state == education_bot_stateM.free_learning:
                 if attentionProcess is None or attentionProcess.poll() is not None:
                     print("Starte Subprozess für Aufmerksamkeitserkennung...")
-                    attentionProcess = subprocess.Popen(["python", script_path],cwd=os.getcwd())
+                    attentionProcess = subprocess.Popen(["python", "HeadPoseEstimation/distractionDetection.py"])
             
             # Zustandswechsel (Subprozess beenden)
             elif current_state != education_bot_stateM.free_learning:

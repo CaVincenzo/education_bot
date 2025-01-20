@@ -18,9 +18,12 @@ interrupt = False
 face = RobotFace()  
 arduino = ArduinoController(port='COM3', baud_rate=9600)
 
+global focus
+FocusCounter = 0
 
 def focus_check():
-    global focus, FocusCounter
+    
+    global FocusCounter 
     
     if not focus:
         FocusCounter += 1
@@ -178,7 +181,7 @@ def monitor(left_angle, right_angle):
         monitor_angles(left_angle, right_angle)
         
         focus_check()
-        time.sleep(10)  # 10 Sekunden warten
+        time.sleep(5)  # 10 Sekunden warten
 
 def main():
     left_angle, right_angle = setup()
