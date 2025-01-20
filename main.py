@@ -134,6 +134,7 @@ def main():
                     # Bot beendet den Prozess
                     face.say("Bye, see you next time!")
                     face.wait()
+                    arduino.wave()
                     #logic für winken
                     break  # Beende die Schleife
             

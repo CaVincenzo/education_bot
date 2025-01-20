@@ -1,0 +1,4 @@
+# Ignore all .png and .wav files in the root directory
+/*.png
+/*.wav
+/*.pdf
