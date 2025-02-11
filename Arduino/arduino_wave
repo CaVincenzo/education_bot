@@ -1,0 +1,34 @@
+#include <Servo.h>
+
+Servo meinServo;  
+
+void setup() {
+  meinServo.attach(9); 
+  Serial.begin(9600);   
+}
+
+void loop() {
+  if (Serial.available() > 0) {
+    char command = Serial.read(); 
+
+    if(command == 'D') {  
+      // Servo von 45° bis 90° bewegen
+      for(int i = 0; i <3;i++){
+        for (int pos = 45; pos <= 90; pos++) {
+          meinServo.write(pos);  
+          delay(15);             
+        }
+        
+        // Servo von 90° zurück auf 45° bewegen
+        for (int pos = 90; pos >= 45; pos--) {
+          meinServo.write(pos);
+          delay(15);
+        }
+      }
+    }
+    
+    if (command == 'S') {  
+      meinServo.write(90);  
+    }
+  }
+}
