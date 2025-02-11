@@ -7,10 +7,7 @@ Vincenzo|Calamita|80735
 Mika|Amann|77880
 
 # Teaservideo
-<video width="320" height="240" controls>
-  <source src="https://drive.google.com/file/d/1QpLhcYFSVPaKVGRjJhGqd95NzRU0PrJw/view?usp=sharing" type="video/mp4">
-</video>
-
+https://drive.google.com/file/d/1QpLhcYFSVPaKVGRjJhGqd95NzRU0PrJw/view?usp=sharing
 
 
 # Education Bot
